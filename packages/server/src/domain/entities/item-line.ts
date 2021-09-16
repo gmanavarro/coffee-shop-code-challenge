@@ -2,6 +2,7 @@ import { Quantity } from '../value-objects/quantity';
 import { Item } from './item';
 import { InvalidItemError } from '../errors/invalid-item.error';
 import { InvalidQuantityError } from '../errors/invalid-quantity.error';
+import { Category } from '../constants/category';
 
 type ConstructorParams = CreateParams;
 
@@ -39,5 +40,17 @@ export class ItemLine {
 
   getTotal(): number {
     return this.item.getPrice() * this.quantity.getValue();
+  }
+
+  isOfCategory(category: Category): boolean {
+    return this.item.isOfCategory(category);
+  }
+
+  getQuantity(): Quantity {
+    return this.quantity;
+  }
+
+  getItemPrice() {
+    return this.item.getPrice();
   }
 }

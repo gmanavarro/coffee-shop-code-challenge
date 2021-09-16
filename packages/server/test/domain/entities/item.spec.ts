@@ -1,12 +1,13 @@
 import { Item } from '../../../src/domain/entities/item';
 import { InvalidStringError } from '../../../src/domain/errors/invalid-string.error';
 import { InvalidPriceError } from '../../../src/domain/errors/invalid-price.error';
+import { Category } from '../../../src/domain/constants/category';
 
 describe('Item (Domain Entity)', function () {
   it('should be created successfully when valid values are passed on creation', function () {
     const item = Item.create({
       name: 'asd',
-      category: 'asd',
+      category: Category.MEAL,
       price: 123,
     });
 
@@ -19,21 +20,21 @@ describe('Item (Domain Entity)', function () {
     expect(() =>
       Item.create({
         name: undefined,
-        category: 'asd',
+        category: Category.BEVERAGE,
         price: 123,
       }),
     ).toThrow(invalidStringError);
     expect(() =>
       Item.create({
         name: '',
-        category: 'asd',
+        category: Category.BEVERAGE,
         price: 123,
       }),
     ).toThrow(invalidStringError);
     expect(() =>
       Item.create({
         name: null,
-        category: 'asd',
+        category: Category.BEVERAGE,
         price: 123,
       }),
     ).toThrow(invalidStringError);
@@ -45,28 +46,28 @@ describe('Item (Domain Entity)', function () {
     expect(() =>
       Item.create({
         name: 'asd',
-        category: 'asd',
+        category: Category.BEVERAGE,
         price: 0,
       }),
     ).toThrow(invalidPriceError);
     expect(() =>
       Item.create({
         name: 'asd',
-        category: 'asd',
+        category: Category.BEVERAGE,
         price: -1,
       }),
     ).toThrow(invalidPriceError);
     expect(() =>
       Item.create({
         name: 'asd',
-        category: 'asd',
+        category: Category.BEVERAGE,
         price: undefined,
       }),
     ).toThrow(invalidPriceError);
     expect(() =>
       Item.create({
         name: 'asd',
-        category: 'asd',
+        category: Category.BEVERAGE,
         price: null,
       }),
     ).toThrow(invalidPriceError);

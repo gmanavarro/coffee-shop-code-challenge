@@ -4,6 +4,7 @@ import { InvalidItemError } from '../../../src/domain/errors/invalid-item.error'
 import { Quantity } from '../../../src/domain/value-objects/quantity';
 import { InvalidQuantityError } from '../../../src/domain/errors/invalid-quantity.error';
 import { ItemLine } from '../../../src/domain/entities/item-line';
+import { Category } from '../../../src/domain/constants/category';
 
 describe('Item Line (Domain Entity)', function () {
   let validTestItemLine: ItemLine;
@@ -13,7 +14,7 @@ describe('Item Line (Domain Entity)', function () {
     validTestItem = new Item({
       id: new Id('testid'),
       name: 'testitem',
-      category: 'testcategory',
+      category: Category.BEVERAGE,
       price: 1,
     });
     validTestItemLine = ItemLine.create({

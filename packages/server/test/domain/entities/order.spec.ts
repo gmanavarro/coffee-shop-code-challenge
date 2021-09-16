@@ -1,10 +1,10 @@
 import { Order } from '../../../src/domain/entities/order';
 import { Item } from '../../../src/domain/entities/item';
 import { Id } from '../../../src/domain/value-objects/id';
-import { InvalidItemError } from '../../../src/domain/errors/invalid-item.error';
 import { InvalidItemLineError } from '../../../src/domain/errors/invalid-item-line.error';
 import { ItemLine } from '../../../src/domain/entities/item-line';
 import { Quantity } from '../../../src/domain/value-objects/quantity';
+import { Category } from '../../../src/domain/constants/category';
 
 describe('Order (Domain Entity)', function () {
   let validTestOrder: Order;
@@ -18,7 +18,7 @@ describe('Order (Domain Entity)', function () {
       item: new Item({
         id: new Id('testid1'),
         name: 'testitem1',
-        category: 'testcategory1',
+        category: Category.BEVERAGE,
         price: 100,
       }),
     });
@@ -27,7 +27,7 @@ describe('Order (Domain Entity)', function () {
       item: new Item({
         id: new Id('testid2'),
         name: 'testitem2',
-        category: 'testcategory2',
+        category: Category.MEAL,
         price: 200,
       }),
     });
@@ -74,21 +74,29 @@ describe('Order (Domain Entity)', function () {
     expect(itemListSizeAfter).toBe(itemListSizeBefore + 1);
   });
 
-  it('should not increase its item line list size after adding an item line with an item that is already on an existing item line ', function () {
-    const itemListSizeBefore = (validTestOrder as any).itemLines.length;
-    validTestOrder.addItemLine(validTestItemLine1);
-    const itemListSizeAfter = (validTestOrder as any).itemLines.length;
+  it(
+    'should not increase its item line list size after adding an item line ' +
+      'with an item that is already on an existing item line ',
+    function () {
+      const itemListSizeBefore = (validTestOrder as any).itemLines.length;
+      validTestOrder.addItemLine(validTestItemLine1);
+      const itemListSizeAfter = (validTestOrder as any).itemLines.length;
 
-    expect(itemListSizeAfter).toBe(itemListSizeBefore);
-  });
+      expect(itemListSizeAfter).toBe(itemListSizeBefore);
+    },
+  );
 
-  it('should increase the quantity of the existing line by one after adding an item line with an item that is already on an existing line', function () {
-    const itemLineQuantityBefore = (validTestItemLine1 as any).quantity.value;
-    validTestOrder.addItemLine(validTestItemLine1);
-    const itemLineQuantityAfter = (validTestItemLine1 as any).quantity.value;
+  it(
+    'should increase the quantity of the existing line by one after adding an ' +
+      'item line with an item that is already on an existing line',
+    function () {
+      const itemLineQuantityBefore = (validTestItemLine1 as any).quantity.value;
+      validTestOrder.addItemLine(validTestItemLine1);
+      const itemLineQuantityAfter = (validTestItemLine1 as any).quantity.value;
 
-    expect(itemLineQuantityAfter).toBe(itemLineQuantityBefore + 1);
-  });
+      expect(itemLineQuantityAfter).toBe(itemLineQuantityBefore + 1);
+    },
+  );
 
   it('should be able to calculate its total cost', function () {
     validTestOrder.addItemLine(validTestItemLine2);
