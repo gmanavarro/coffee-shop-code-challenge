@@ -1,0 +1,15 @@
+{
+  "name": "agnos-code-challenge",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "start:dev": "lerna run --stream start:dev"
+  },
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  }
+}
