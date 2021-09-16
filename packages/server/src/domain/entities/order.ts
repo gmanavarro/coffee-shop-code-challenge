@@ -41,4 +41,13 @@ export class Order {
 
     this.itemLines.push(newItemLine);
   }
+
+  getTotal(): number {
+    const totalWithoutDiscounts = this.itemLines.reduce(
+      (total, itemLine) => total + itemLine.getTotal(),
+      0,
+    );
+
+    return totalWithoutDiscounts;
+  }
 }

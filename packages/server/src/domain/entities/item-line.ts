@@ -36,4 +36,8 @@ export class ItemLine {
   increaseQuantity(): void {
     this.quantity = this.quantity.increased();
   }
+
+  getTotal(): number {
+    return this.item.getPrice() * this.quantity.getValue();
+  }
 }

@@ -17,4 +17,8 @@ export class Quantity {
   increased(): Quantity {
     return Quantity.create(this.value + 1);
   }
+
+  getValue(): number {
+    return this.value;
+  }
 }

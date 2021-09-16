@@ -19,7 +19,7 @@ describe('Order (Domain Entity)', function () {
         id: new Id('testid1'),
         name: 'testitem1',
         category: 'testcategory1',
-        price: 1,
+        price: 100,
       }),
     });
     validTestItemLine2 = new ItemLine({
@@ -28,7 +28,7 @@ describe('Order (Domain Entity)', function () {
         id: new Id('testid2'),
         name: 'testitem2',
         category: 'testcategory2',
-        price: 2,
+        price: 200,
       }),
     });
     validTestOrder = Order.create({
@@ -88,5 +88,11 @@ describe('Order (Domain Entity)', function () {
     const itemLineQuantityAfter = (validTestItemLine1 as any).quantity.value;
 
     expect(itemLineQuantityAfter).toBe(itemLineQuantityBefore + 1);
+  });
+
+  it('should be able to calculate its total cost', function () {
+    validTestOrder.addItemLine(validTestItemLine2);
+
+    expect(validTestOrder.getTotal()).toBe(300);
   });
 });

@@ -42,4 +42,8 @@ export class Item {
   equals(item: Item) {
     return this.id.equals(item.id);
   }
+
+  getPrice(): number {
+    return this.price;
+  }
 }
