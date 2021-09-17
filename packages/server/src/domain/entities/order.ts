@@ -1,6 +1,7 @@
 import { Id } from '../value-objects/id';
 import { ItemLine } from './item-line';
 import { InvalidItemLineError } from '../errors/invalid-item-line.error';
+import { DiscountCalculator } from '../services/discounts/discount-calculator';
 
 interface ConstructorParams {
   id: Id;
@@ -42,12 +43,18 @@ export class Order {
     this.itemLines.push(newItemLine);
   }
 
-  getTotal(): number {
-    const totalWithoutDiscounts = this.itemLines.reduce(
+  getSubTotal(): number {
+    return this.itemLines.reduce(
       (total, itemLine) => total + itemLine.getTotal(),
       0,
     );
+  }
+  ß;
 
-    return totalWithoutDiscounts;
+  getTotal(discountCalculator: DiscountCalculator) {
+    return (
+      this.getSubTotal() -
+      discountCalculator.calculateDiscountToApply(this.itemLines)
+    );
   }
 }

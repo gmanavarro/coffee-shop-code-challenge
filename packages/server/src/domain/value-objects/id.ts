@@ -20,4 +20,8 @@ export class Id {
   equals(id: Id) {
     return this.value === id.value;
   }
+
+  getValue(): string {
+    return this.value;
+  }
 }
