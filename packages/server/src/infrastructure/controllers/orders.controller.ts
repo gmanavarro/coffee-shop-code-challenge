@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Param, Post } from '@nestjs/common';
 import {
   ADD_ITEM_TO_ORDER_ROUTE,
   CREATE_ORDER_ROUTE,
@@ -24,6 +24,7 @@ export class OrdersController {
   }
 
   @Post(ADD_ITEM_TO_ORDER_ROUTE)
+  @HttpCode(200)
   async addItemToOrder(
     @Param() idParamDto: IdParamDto,
     @Body() addItemToOrderDto: CreateOrderDto,

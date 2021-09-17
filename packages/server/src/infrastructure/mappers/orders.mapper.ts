@@ -22,6 +22,7 @@ export class OrdersMapper {
             item: this.itemsMapper.toDomain(line.item),
           }),
       ),
+      status: orderModel.status,
     });
   }
 
@@ -29,6 +30,7 @@ export class OrdersMapper {
     const orderObject = order as any;
     return {
       id: orderObject.id.value,
+      status: orderObject.status,
       lines: orderObject.itemLines.map((line) => ({
         quantity: line.quantity.value,
         item: this.itemsMapper.toDto(line.item),
@@ -46,6 +48,7 @@ export class OrdersMapper {
         quantity: line.quantity.value,
         item: line.item.id.value,
       })),
+      status: orderObject.status,
     };
   }
 }

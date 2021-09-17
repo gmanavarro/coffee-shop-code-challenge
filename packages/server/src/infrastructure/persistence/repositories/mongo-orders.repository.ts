@@ -21,8 +21,8 @@ export class MongoOrdersRepository implements OrdersRepository {
   }
 
   async updateOrder(order: Order): Promise<void> {
-    const orderToPersist = this.orderMapper.toPersistence(order);
-    await this.orderModel.updateOne({ _id: orderToPersist._id });
+    const { _id, ...orderToPersist } = this.orderMapper.toPersistence(order);
+    await this.orderModel.updateOne({ _id }, orderToPersist);
   }
 
   async findOrderById(id: Id): Promise<Order> {

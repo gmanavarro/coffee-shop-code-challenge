@@ -1,5 +1,6 @@
 import { Document } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Category } from '../../../domain/constants/category';
 
 @Schema({ collection: 'items' })
 export class ItemModel {
@@ -10,7 +11,7 @@ export class ItemModel {
   name: string;
 
   @Prop()
-  category: string;
+  category: Category;
 
   @Prop()
   price: number;

@@ -6,13 +6,15 @@ import { ItemLine } from '../../../src/domain/entities/item-line';
 import { Quantity } from '../../../src/domain/value-objects/quantity';
 import { Category } from '../../../src/domain/constants/category';
 import { DiscountCalculator } from '../../../src/domain/services/discounts/discount-calculator';
+import { Status } from '../../../src/domain/constants/status';
+import { InvalidStatusToAddError } from '../../../src/domain/errors/invalid-status-to-add.error';
 
 describe('Order (Domain Entity)', function () {
   let validTestOrder: Order;
   let validTestItemLine1: ItemLine;
   let validTestItemLine2: ItemLine;
-  const invalidItemLineError = new InvalidItemLineError();
 
+  new InvalidItemLineError();
   beforeEach(function () {
     validTestItemLine1 = new ItemLine({
       quantity: new Quantity(1),
@@ -48,12 +50,12 @@ describe('Order (Domain Entity)', function () {
       Order.create({
         itemLine: undefined,
       }),
-    ).toThrow(invalidItemLineError);
+    ).toThrow(InvalidItemLineError);
     expect(() =>
       Order.create({
         itemLine: null,
       }),
-    ).toThrow(invalidItemLineError);
+    ).toThrow(InvalidItemLineError);
   });
 
   it('should be able to add an item line to its item line list', function () {
@@ -62,10 +64,10 @@ describe('Order (Domain Entity)', function () {
 
   it('should throw an error when adding an invalid item line ', function () {
     expect(() => validTestOrder.addItemLine(undefined)).toThrow(
-      invalidItemLineError,
+      InvalidItemLineError,
     );
     expect(() => validTestOrder.addItemLine(null)).toThrow(
-      invalidItemLineError,
+      InvalidItemLineError,
     );
   });
 
@@ -126,5 +128,37 @@ describe('Order (Domain Entity)', function () {
     order.addItemLine(itemLine);
 
     expect(order.getTotal(new DiscountCalculator())).toBe(60);
+  });
+
+  it('should start with Pending status when created', function () {
+    expect((validTestOrder as any).status).toBe(Status.PENDING);
+  });
+
+  it('should switch to Confirmed status when confirmed', function () {
+    validTestOrder.confirm();
+
+    expect((validTestOrder as any).status).toBe(Status.CONFIRMED);
+  });
+
+  it('should switch to Completed status when it is ready', function () {
+    validTestOrder.complete();
+
+    expect((validTestOrder as any).status).toBe(Status.COMPLETED);
+  });
+
+  it('should not be able to add further item lines when its status is Confirmed', function () {
+    validTestOrder.confirm();
+
+    expect(() => validTestOrder.addItemLine(validTestItemLine1)).toThrow(
+      InvalidStatusToAddError,
+    );
+  });
+
+  it('should not be able to add further item lines when its status is Confirmed', function () {
+    validTestOrder.complete();
+
+    expect(() => validTestOrder.addItemLine(validTestItemLine1)).toThrow(
+      InvalidStatusToAddError,
+    );
   });
 });

@@ -2,6 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as Mongoose from 'mongoose';
 import { ItemModel } from './item.schema';
 import { Item } from '../../../domain/entities/item';
+import { Status } from '../../../domain/constants/status';
 
 @Schema({ collection: undefined })
 class ItemLineSchema {
@@ -18,6 +19,9 @@ export class OrderModel {
 
   @Prop([ItemLineSchema])
   itemLines: ItemLineSchema[];
+
+  @Prop()
+  status: Status;
 }
 
 export const OrderSchema = SchemaFactory.createForClass(OrderModel);

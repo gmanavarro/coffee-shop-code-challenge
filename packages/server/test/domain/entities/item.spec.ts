@@ -16,8 +16,6 @@ describe('Item (Domain Entity)', function () {
   });
 
   it('should throw an error when an invalid name is passed on creation', function () {
-    const invalidStringError = new InvalidStringError();
-
     expect(() =>
       Item.create({
         name: undefined,
@@ -25,7 +23,7 @@ describe('Item (Domain Entity)', function () {
         price: 123,
         taxRate: 1,
       }),
-    ).toThrow(invalidStringError);
+    ).toThrow(InvalidStringError);
     expect(() =>
       Item.create({
         name: '',
@@ -33,7 +31,7 @@ describe('Item (Domain Entity)', function () {
         price: 123,
         taxRate: 1,
       }),
-    ).toThrow(invalidStringError);
+    ).toThrow(InvalidStringError);
     expect(() =>
       Item.create({
         name: null,
@@ -41,12 +39,10 @@ describe('Item (Domain Entity)', function () {
         price: 123,
         taxRate: 1,
       }),
-    ).toThrow(invalidStringError);
+    ).toThrow(InvalidStringError);
   });
 
   it('should throw an error when an invalid price is passed on creation', function () {
-    const invalidPriceError = new InvalidPriceError();
-
     expect(() =>
       Item.create({
         name: 'asd',
@@ -54,7 +50,7 @@ describe('Item (Domain Entity)', function () {
         price: 0,
         taxRate: 1,
       }),
-    ).toThrow(invalidPriceError);
+    ).toThrow(InvalidPriceError);
     expect(() =>
       Item.create({
         name: 'asd',
@@ -62,7 +58,7 @@ describe('Item (Domain Entity)', function () {
         price: -1,
         taxRate: 1,
       }),
-    ).toThrow(invalidPriceError);
+    ).toThrow(InvalidPriceError);
     expect(() =>
       Item.create({
         name: 'asd',
@@ -70,7 +66,7 @@ describe('Item (Domain Entity)', function () {
         price: undefined,
         taxRate: 1,
       }),
-    ).toThrow(invalidPriceError);
+    ).toThrow(InvalidPriceError);
     expect(() =>
       Item.create({
         name: 'asd',
@@ -78,6 +74,6 @@ describe('Item (Domain Entity)', function () {
         price: null,
         taxRate: 1,
       }),
-    ).toThrow(invalidPriceError);
+    ).toThrow(InvalidPriceError);
   });
 });
