@@ -11,6 +11,9 @@ export class ItemModel {
   name: string;
 
   @Prop()
+  imageUrl: string;
+
+  @Prop()
   category: Category;
 
   @Prop()

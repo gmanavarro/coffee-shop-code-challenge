@@ -4,6 +4,7 @@ import { InvalidItemLineError } from '../errors/invalid-item-line.error';
 import { DiscountCalculator } from '../services/discounts/discount-calculator';
 import { Status } from '../constants/status';
 import { InvalidStatusToAddError } from '../errors/invalid-status-to-add.error';
+import { InvalidStatusError } from '../errors/invalid-status.error';
 
 interface ConstructorParams {
   id: Id;
@@ -70,10 +71,16 @@ export class Order {
   }
 
   confirm(): void {
+    if (this.status !== Status.PENDING) throw new InvalidStatusError();
     this.status = Status.CONFIRMED;
   }
 
   complete() {
+    if (this.status !== Status.CONFIRMED) throw new InvalidStatusError();
     this.status = Status.COMPLETED;
+  }
+
+  equals(order: Order): boolean {
+    return this.id.equals(order.id);
   }
 }

@@ -7,6 +7,7 @@ describe('Item (Domain Entity)', function () {
   it('should be created successfully when valid values are passed on creation', function () {
     const item = Item.create({
       name: 'asd',
+      imageUrl: 'url',
       category: Category.MEAL,
       price: 123,
       taxRate: 0.5,
@@ -19,6 +20,7 @@ describe('Item (Domain Entity)', function () {
     expect(() =>
       Item.create({
         name: undefined,
+        imageUrl: 'url',
         category: Category.BEVERAGE,
         price: 123,
         taxRate: 1,
@@ -27,6 +29,7 @@ describe('Item (Domain Entity)', function () {
     expect(() =>
       Item.create({
         name: '',
+        imageUrl: 'url',
         category: Category.BEVERAGE,
         price: 123,
         taxRate: 1,
@@ -35,6 +38,7 @@ describe('Item (Domain Entity)', function () {
     expect(() =>
       Item.create({
         name: null,
+        imageUrl: 'url',
         category: Category.BEVERAGE,
         price: 123,
         taxRate: 1,
@@ -46,6 +50,7 @@ describe('Item (Domain Entity)', function () {
     expect(() =>
       Item.create({
         name: 'asd',
+        imageUrl: 'url',
         category: Category.BEVERAGE,
         price: 0,
         taxRate: 1,
@@ -54,6 +59,7 @@ describe('Item (Domain Entity)', function () {
     expect(() =>
       Item.create({
         name: 'asd',
+        imageUrl: 'url',
         category: Category.BEVERAGE,
         price: -1,
         taxRate: 1,
@@ -62,6 +68,7 @@ describe('Item (Domain Entity)', function () {
     expect(() =>
       Item.create({
         name: 'asd',
+        imageUrl: 'url',
         category: Category.BEVERAGE,
         price: undefined,
         taxRate: 1,
@@ -70,6 +77,7 @@ describe('Item (Domain Entity)', function () {
     expect(() =>
       Item.create({
         name: 'asd',
+        imageUrl: 'url',
         category: Category.BEVERAGE,
         price: null,
         taxRate: 1,

@@ -10,6 +10,7 @@ export class ItemsMapper {
     return new Item({
       id: new Id(itemModel._id),
       name: itemModel.name,
+      imageUrl: itemModel.imageUrl,
       category: itemModel.category as any,
       price: itemModel.price,
       taxRate: itemModel.taxRate,
@@ -21,6 +22,7 @@ export class ItemsMapper {
     return {
       id: itemObject.id.value,
       name: itemObject.name,
+      imageUrl: itemObject.imageUrl,
       category: itemObject.category,
       price: itemObject.price,
       taxRate: itemObject.taxRate,

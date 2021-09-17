@@ -6,8 +6,9 @@ import { setupApplication } from './application';
 
 export async function setupNest(): Promise<NestApplication> {
   const app = await setupApplication();
-  setupMiddlewares(app);
   setupExceptionFilter(app);
+  setupMiddlewares(app);
+
   await setupSeederService(app);
   return app;
 }

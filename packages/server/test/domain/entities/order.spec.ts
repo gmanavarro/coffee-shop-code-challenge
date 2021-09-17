@@ -8,6 +8,7 @@ import { Category } from '../../../src/domain/constants/category';
 import { DiscountCalculator } from '../../../src/domain/services/discounts/discount-calculator';
 import { Status } from '../../../src/domain/constants/status';
 import { InvalidStatusToAddError } from '../../../src/domain/errors/invalid-status-to-add.error';
+import { InvalidStatusError } from '../../../src/domain/errors/invalid-status.error';
 
 describe('Order (Domain Entity)', function () {
   let validTestOrder: Order;
@@ -21,6 +22,7 @@ describe('Order (Domain Entity)', function () {
       item: new Item({
         id: new Id('testid1'),
         name: 'testitem1',
+        imageUrl: 'url',
         category: Category.BEVERAGE,
         price: 100,
         taxRate: 0,
@@ -31,6 +33,7 @@ describe('Order (Domain Entity)', function () {
       item: new Item({
         id: new Id('testid2'),
         name: 'testitem2',
+        imageUrl: 'url',
         category: Category.MEAL,
         price: 200,
         taxRate: 0,
@@ -115,6 +118,7 @@ describe('Order (Domain Entity)', function () {
       item: new Item({
         id: new Id('id'),
         name: 'name',
+        imageUrl: 'url',
         category: Category.MEAL,
         price: 10,
         taxRate: 0.5,
@@ -134,13 +138,14 @@ describe('Order (Domain Entity)', function () {
     expect((validTestOrder as any).status).toBe(Status.PENDING);
   });
 
-  it('should switch to Confirmed status when confirmed', function () {
+  it('should be able to switch from Pending to Confirmed status when confirmed', function () {
     validTestOrder.confirm();
 
     expect((validTestOrder as any).status).toBe(Status.CONFIRMED);
   });
 
-  it('should switch to Completed status when it is ready', function () {
+  it('should be able to switch from Confirmed to Completed status when it is ready', function () {
+    validTestOrder.confirm();
     validTestOrder.complete();
 
     expect((validTestOrder as any).status).toBe(Status.COMPLETED);
@@ -155,10 +160,22 @@ describe('Order (Domain Entity)', function () {
   });
 
   it('should not be able to add further item lines when its status is Confirmed', function () {
+    validTestOrder.confirm();
     validTestOrder.complete();
 
     expect(() => validTestOrder.addItemLine(validTestItemLine1)).toThrow(
       InvalidStatusToAddError,
     );
+  });
+
+  it('should not be able to switch from Pending to Completed state', function () {
+    expect(() => validTestOrder.complete()).toThrow(InvalidStatusError);
+  });
+
+  it('should not be able to switch from Completed to Confirmed state', function () {
+    validTestOrder.confirm();
+    validTestOrder.complete();
+
+    expect(() => validTestOrder.confirm()).toThrow(InvalidStatusError);
   });
 });

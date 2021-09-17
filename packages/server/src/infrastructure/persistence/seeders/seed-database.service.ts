@@ -13,7 +13,15 @@ export class ItemSeederService {
 
   async seed() {
     if (this.configService.get('NODE_ENV') !== 'development') return;
-    await this.mongoDbConnection.collection('items').drop();
-    await this.mongoDbConnection.collection('items').insertMany(items as any);
+    const bulk = this.mongoDbConnection.collection('items').bulkWrite(
+      items.map(({ _id, ...attributes }) => ({
+        updateOne: {
+          filter: { _id },
+          update: { $set: attributes },
+          upsert: true,
+        },
+      })),
+      { ordered: false },
+    );
   }
 }

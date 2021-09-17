@@ -1,14 +1,25 @@
-import { Body, Controller, Get, HttpCode, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  Logger,
+  Param,
+  Post,
+  Sse,
+} from '@nestjs/common';
 import {
   ADD_ITEM_TO_ORDER_ROUTE,
+  ORDER_COMPLETED_EVENTS_ROUTE,
+  CONFIRM_ORDER_ROUTE,
   CREATE_ORDER_ROUTE,
-  GET_ORDER_BY_ID_ROUTE,
 } from '../routes';
 import { CreateOrderDto } from '../dtos/input/create-order.dto';
 import { OrdersService } from '../../services/orders.service';
 import { OrdersMapper } from '../mappers/orders.mapper';
 import { OrderDto } from '../dtos/output/order.dto';
 import { IdParamDto } from '../dtos/input/id-param.dto';
+import { map, Observable } from 'rxjs';
+import { OrderCompletedEventDto } from '../dtos/output/order-completed-event.dto';
 
 @Controller()
 export class OrdersController {
@@ -36,6 +47,21 @@ export class OrdersController {
     return this.ordersMapper.toDto(updatedOrder);
   }
 
-  @Get(GET_ORDER_BY_ID_ROUTE)
-  async getOrderById() {}
+  @Post(CONFIRM_ORDER_ROUTE)
+  @HttpCode(200)
+  async confirmOrder(@Param() idParamDto: IdParamDto) {
+    await this.ordersService.confirmOrder({ orderId: idParamDto.id });
+  }
+
+  @Sse(ORDER_COMPLETED_EVENTS_ROUTE)
+  publishCompletedOrders(): Observable<OrderCompletedEventDto> {
+    const orderCompletedEventStream = this.ordersService
+      .publishCompletedOrders()
+      .pipe(map((order) => new OrderCompletedEventDto(order)));
+    orderCompletedEventStream.subscribe(() =>
+      Logger.log('Order Completed event triggered', this.constructor.name),
+    );
+
+    return orderCompletedEventStream;
+  }
 }

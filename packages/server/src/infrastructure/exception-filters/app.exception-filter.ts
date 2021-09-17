@@ -19,8 +19,10 @@ export class AppExceptionFilter extends BaseExceptionFilter {
   catch(exception: unknown, host: ArgumentsHost) {
     Logger.error(exception);
 
-    if (exception instanceof DomainError)
+    if (exception instanceof DomainError) {
       super.catch(new UnprocessableEntityException(exception.message), host);
+      return;
+    }
 
     super.catch(new InternalServerErrorException(), host);
   }

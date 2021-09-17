@@ -14,6 +14,7 @@ describe('Item Line (Domain Entity)', function () {
     validTestItem = new Item({
       id: new Id('testid'),
       name: 'testitem',
+      imageUrl: 'url',
       category: Category.BEVERAGE,
       price: 1,
       taxRate: 1,

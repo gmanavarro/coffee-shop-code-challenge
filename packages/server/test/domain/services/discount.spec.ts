@@ -12,6 +12,7 @@ describe('Discount Calculator', function () {
     item: new Item({
       id: new Id('testid1'),
       name: 'testitem1',
+      imageUrl: 'url',
       category: Category.BEVERAGE,
       price: 100,
       taxRate: 0,
@@ -22,6 +23,7 @@ describe('Discount Calculator', function () {
     item: new Item({
       id: new Id('testid2'),
       name: 'testitem2',
+      imageUrl: 'url',
       category: Category.MEAL,
       price: 200,
       taxRate: 0,
@@ -43,6 +45,7 @@ describe('Discount Calculator', function () {
       item: new Item({
         id: new Id('testid3'),
         name: 'testitem3',
+        imageUrl: 'url',
         category: Category.BEVERAGE,
         price: 10,
         taxRate: 0,
@@ -76,6 +79,7 @@ describe('Discount Calculator', function () {
       item: new Item({
         id: new Id('testid4'),
         name: 'testitem4',
+        imageUrl: 'url',
         category: Category.MEAL,
         price: 45,
         taxRate: 0,
@@ -99,6 +103,7 @@ describe('Discount Calculator', function () {
       item: new Item({
         id: new Id('testid4'),
         name: 'testitem4',
+        imageUrl: 'url',
         category: Category.MEAL,
         price: 100,
         taxRate: 0.25,

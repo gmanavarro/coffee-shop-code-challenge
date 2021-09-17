@@ -4,15 +4,17 @@ import { InvalidPriceError } from '../errors/invalid-price.error';
 import { Category } from '../constants/category';
 
 interface ConstructorParams {
+  id: Id;
   price: number;
   name: string;
-  id: Id;
+  imageUrl: string;
   category: Category;
   taxRate: number;
 }
 
 interface CreateParams {
   name: string;
+  imageUrl: string;
   category: Category;
   price: number;
   taxRate: number;
@@ -21,6 +23,7 @@ interface CreateParams {
 export class Item {
   private readonly id: Id;
   private readonly name: string;
+  private readonly imageUrl: string;
   private readonly category: Category;
   private readonly price: number;
   private readonly taxRate: number;
@@ -28,6 +31,7 @@ export class Item {
   constructor(params: ConstructorParams) {
     this.id = params.id;
     this.name = params.name;
+    this.imageUrl = params.imageUrl;
     this.category = params.category;
     this.price = params.price;
     this.taxRate = params.taxRate;
@@ -41,6 +45,7 @@ export class Item {
     return new Item({
       id: Id.generate(),
       name: params.name,
+      imageUrl: params.imageUrl,
       category: params.category,
       price: params.price,
       taxRate: params.taxRate,
