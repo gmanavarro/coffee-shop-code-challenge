@@ -14,13 +14,11 @@ export class TwoMealsAndTwoBeveragesDiscount implements Discount {
           beverages:
             result.beverages +
             (itemLine.isOfCategory(Category.BEVERAGE)
-              ? itemLine.getQuantity().getValue()
+              ? itemLine.getQuantity()
               : 0),
           meals:
             result.meals +
-            (itemLine.isOfCategory(Category.MEAL)
-              ? itemLine.getQuantity().getValue()
-              : 0),
+            (itemLine.isOfCategory(Category.MEAL) ? itemLine.getQuantity() : 0),
           lowestMealCost:
             itemLine.getItemPrice() < result.lowestMealCost
               ? itemLine.getItemPrice()

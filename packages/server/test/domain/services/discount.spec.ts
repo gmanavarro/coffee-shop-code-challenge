@@ -14,6 +14,7 @@ describe('Discount Calculator', function () {
       name: 'testitem1',
       category: Category.BEVERAGE,
       price: 100,
+      taxRate: 0,
     }),
   });
   const validTestItemLine2 = new ItemLine({
@@ -23,6 +24,7 @@ describe('Discount Calculator', function () {
       name: 'testitem2',
       category: Category.MEAL,
       price: 200,
+      taxRate: 0,
     }),
   });
 
@@ -43,6 +45,7 @@ describe('Discount Calculator', function () {
         name: 'testitem3',
         category: Category.BEVERAGE,
         price: 10,
+        taxRate: 0,
       }),
     });
 
@@ -75,6 +78,7 @@ describe('Discount Calculator', function () {
         name: 'testitem4',
         category: Category.MEAL,
         price: 45,
+        taxRate: 0,
       }),
     });
 
@@ -87,5 +91,28 @@ describe('Discount Calculator', function () {
         validTestLineItem4,
       ]),
     ).toBe(45);
+  });
+
+  it('should apply a 100% discount considering tax rate on the lowest cost Meal when ordering 5 Meals in total', function () {
+    const validTestLineItem4 = new ItemLine({
+      quantity: new Quantity(2),
+      item: new Item({
+        id: new Id('testid4'),
+        name: 'testitem4',
+        category: Category.MEAL,
+        price: 100,
+        taxRate: 0.25,
+      }),
+    });
+
+    expect(
+      discountCalculator.calculateDiscountToApply([
+        validTestItemLine2,
+        validTestItemLine2,
+        validTestItemLine2,
+        validTestItemLine2,
+        validTestLineItem4,
+      ]),
+    ).toBe(125);
   });
 });

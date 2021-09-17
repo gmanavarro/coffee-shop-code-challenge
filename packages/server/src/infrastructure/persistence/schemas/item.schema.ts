@@ -14,6 +14,9 @@ export class ItemModel {
 
   @Prop()
   price: number;
+
+  @Prop()
+  taxRate: number;
 }
 
 export const ItemSchema = SchemaFactory.createForClass(ItemModel);

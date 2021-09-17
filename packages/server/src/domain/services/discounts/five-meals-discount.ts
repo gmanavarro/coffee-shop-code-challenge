@@ -16,9 +16,7 @@ export class FiveMealsDiscount implements Discount {
         return {
           meals:
             result.meals +
-            (itemLine.isOfCategory(Category.MEAL)
-              ? itemLine.getQuantity().getValue()
-              : 0),
+            (itemLine.isOfCategory(Category.MEAL) ? itemLine.getQuantity() : 0),
           lowestMealCost:
             itemLine.getItemPrice() < result.lowestMealCost
               ? itemLine.getItemPrice()

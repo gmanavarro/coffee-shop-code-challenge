@@ -20,6 +20,7 @@ describe('Order (Domain Entity)', function () {
         name: 'testitem1',
         category: Category.BEVERAGE,
         price: 100,
+        taxRate: 0,
       }),
     });
     validTestItemLine2 = new ItemLine({
@@ -29,6 +30,7 @@ describe('Order (Domain Entity)', function () {
         name: 'testitem2',
         category: Category.MEAL,
         price: 200,
+        taxRate: 0,
       }),
     });
     validTestOrder = Order.create({

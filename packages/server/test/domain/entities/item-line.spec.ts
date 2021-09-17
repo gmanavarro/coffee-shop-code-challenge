@@ -16,6 +16,7 @@ describe('Item Line (Domain Entity)', function () {
       name: 'testitem',
       category: Category.BEVERAGE,
       price: 1,
+      taxRate: 1,
     });
     validTestItemLine = ItemLine.create({
       quantity: new Quantity(1),

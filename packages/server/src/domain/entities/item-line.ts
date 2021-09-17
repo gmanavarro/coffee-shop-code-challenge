@@ -46,8 +46,8 @@ export class ItemLine {
     return this.item.isOfCategory(category);
   }
 
-  getQuantity(): Quantity {
-    return this.quantity;
+  getQuantity(): number {
+    return this.quantity.getValue();
   }
 
   getItemPrice() {

@@ -3,4 +3,5 @@ export class ItemDto {
   name: string;
   category: string;
   price: number;
+  taxRate: number;
 }

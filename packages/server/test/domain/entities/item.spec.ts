@@ -9,6 +9,7 @@ describe('Item (Domain Entity)', function () {
       name: 'asd',
       category: Category.MEAL,
       price: 123,
+      taxRate: 0.5,
     });
 
     expect(item).toBeDefined();
@@ -22,6 +23,7 @@ describe('Item (Domain Entity)', function () {
         name: undefined,
         category: Category.BEVERAGE,
         price: 123,
+        taxRate: 1,
       }),
     ).toThrow(invalidStringError);
     expect(() =>
@@ -29,6 +31,7 @@ describe('Item (Domain Entity)', function () {
         name: '',
         category: Category.BEVERAGE,
         price: 123,
+        taxRate: 1,
       }),
     ).toThrow(invalidStringError);
     expect(() =>
@@ -36,6 +39,7 @@ describe('Item (Domain Entity)', function () {
         name: null,
         category: Category.BEVERAGE,
         price: 123,
+        taxRate: 1,
       }),
     ).toThrow(invalidStringError);
   });
@@ -48,6 +52,7 @@ describe('Item (Domain Entity)', function () {
         name: 'asd',
         category: Category.BEVERAGE,
         price: 0,
+        taxRate: 1,
       }),
     ).toThrow(invalidPriceError);
     expect(() =>
@@ -55,6 +60,7 @@ describe('Item (Domain Entity)', function () {
         name: 'asd',
         category: Category.BEVERAGE,
         price: -1,
+        taxRate: 1,
       }),
     ).toThrow(invalidPriceError);
     expect(() =>
@@ -62,6 +68,7 @@ describe('Item (Domain Entity)', function () {
         name: 'asd',
         category: Category.BEVERAGE,
         price: undefined,
+        taxRate: 1,
       }),
     ).toThrow(invalidPriceError);
     expect(() =>
@@ -69,6 +76,7 @@ describe('Item (Domain Entity)', function () {
         name: 'asd',
         category: Category.BEVERAGE,
         price: null,
+        taxRate: 1,
       }),
     ).toThrow(invalidPriceError);
   });
