@@ -5,6 +5,7 @@ import { InvalidItemLineError } from '../../../src/domain/errors/invalid-item-li
 import { ItemLine } from '../../../src/domain/entities/item-line';
 import { Quantity } from '../../../src/domain/value-objects/quantity';
 import { Category } from '../../../src/domain/constants/category';
+import { DiscountCalculator } from '../../../src/domain/services/discounts/discount-calculator';
 
 describe('Order (Domain Entity)', function () {
   let validTestOrder: Order;
@@ -100,9 +101,30 @@ describe('Order (Domain Entity)', function () {
     },
   );
 
-  it('should be able to calculate its total cost', function () {
+  it('should be able to calculate its subtotal cost', function () {
     validTestOrder.addItemLine(validTestItemLine2);
 
-    expect(validTestOrder.getTotal()).toBe(300);
+    expect(validTestOrder.getSubTotal()).toBe(300);
+  });
+
+  it('should be able to calculate its total cost after discounts (applying five meals discount rule)', function () {
+    const itemLine = new ItemLine({
+      quantity: new Quantity(1),
+      item: new Item({
+        id: new Id('id'),
+        name: 'name',
+        category: Category.MEAL,
+        price: 10,
+        taxRate: 0.5,
+      }),
+    });
+
+    const order = Order.create({ itemLine });
+    order.addItemLine(itemLine);
+    order.addItemLine(itemLine);
+    order.addItemLine(itemLine);
+    order.addItemLine(itemLine);
+
+    expect(order.getTotal(new DiscountCalculator())).toBe(60);
   });
 });

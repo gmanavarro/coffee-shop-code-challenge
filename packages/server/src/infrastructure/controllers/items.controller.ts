@@ -1,14 +1,14 @@
 import { Controller, Get } from '@nestjs/common';
-import { GET_ITEMS_ROUTE } from '../routes/routesIndex';
-import { ItemDto } from '../dtos/item.dto';
+import { GET_ITEMS_ROUTE } from '../routes';
+import { ItemDto } from '../dtos/output/item.dto';
 import { ItemsService } from '../../services/items.service';
-import { ItemMapper } from '../mappers/item.mapper';
+import { ItemsMapper } from '../mappers/items.mapper';
 
 @Controller()
 export class ItemsController {
   constructor(
     private readonly itemsService: ItemsService,
-    private readonly itemMapper: ItemMapper,
+    private readonly itemMapper: ItemsMapper,
   ) {}
 
   @Get(GET_ITEMS_ROUTE)

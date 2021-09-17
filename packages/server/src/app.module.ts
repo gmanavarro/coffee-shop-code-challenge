@@ -3,6 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ItemsModule } from './infrastructure/modules/items.module';
 import { ItemSeederService } from './infrastructure/persistence/seeders/seed-database.service';
+import { OrdersModule } from './infrastructure/modules/orders.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { ItemSeederService } from './infrastructure/persistence/seeders/seed-dat
       inject: [ConfigService],
     }),
     ItemsModule,
+    OrdersModule,
   ],
   providers: [ItemSeederService],
 })

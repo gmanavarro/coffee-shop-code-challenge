@@ -1,18 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { Item } from '../../domain/entities/item';
-import { ItemDto } from '../dtos/item.dto';
+import { ItemDto } from '../dtos/output/item.dto';
 import { Id } from '../../domain/value-objects/id';
 import { ItemModel } from '../persistence/schemas/item.schema';
 
 @Injectable()
-export class ItemMapper {
-  toDomain(itemDocument: ItemModel): Item {
+export class ItemsMapper {
+  toDomain(itemModel: ItemModel): Item {
     return new Item({
-      id: new Id(itemDocument._id),
-      name: itemDocument.name,
-      category: itemDocument.category as any,
-      price: itemDocument.price,
-      taxRate: itemDocument.taxRate,
+      id: new Id(itemModel._id),
+      name: itemModel.name,
+      category: itemModel.category as any,
+      price: itemModel.price,
+      taxRate: itemModel.taxRate,
     });
   }
 

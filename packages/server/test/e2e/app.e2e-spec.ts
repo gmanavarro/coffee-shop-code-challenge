@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from '../../src/app.module';
-import { GET_ITEMS_ROUTE } from '../../src/infrastructure/routes/routesIndex';
+import { GET_ITEMS_ROUTE } from '../../src/infrastructure/routes';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
@@ -17,6 +17,6 @@ describe('AppController (e2e)', () => {
   });
 
   it('/items (GET)', () => {
-    return request(app.getHttpServer()).get(GET_ITEMS_ROUTE).expect(200);
+    return request(app.getHttpServer()).get('/items').expect(200);
   });
 });
