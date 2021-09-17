@@ -1,8 +1,7 @@
-import morganBody from 'morgan-body';
+import * as morganBody from 'morgan-body';
 import { NestApplication } from '@nestjs/core';
 import { Logger } from '@nestjs/common';
-import helmet from 'helmet';
-import * as csurf from 'csurf';
+import * as helmet from 'helmet';
 
 export function setupMiddlewares(app: NestApplication) {
   setupSecurityMiddlewares(app);
@@ -12,12 +11,11 @@ export function setupMiddlewares(app: NestApplication) {
 function setupSecurityMiddlewares(app: NestApplication) {
   app.enableCors();
   app.use(helmet());
-  app.use(csurf());
 }
 
 function setupLoggerMiddleware(app: NestApplication) {
   const logger = app.get(Logger);
-  morganBody(app.getHttpAdapter().getInstance(), {
+  (morganBody as any)(app.getHttpAdapter().getInstance(), {
     stream: {
       write: (message: string) => {
         logger.log(message.replace('\n', ''));

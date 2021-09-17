@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Logger, Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ItemsModule } from './infrastructure/modules/items.module';
@@ -21,6 +21,6 @@ import { OrdersModule } from './infrastructure/modules/orders.module';
     ItemsModule,
     OrdersModule,
   ],
-  providers: [ItemSeederService],
+  providers: [ItemSeederService, Logger],
 })
 export class AppModule {}
