@@ -1,3 +1,5 @@
-export class InvalidQuantityError extends Error {
+import { DomainError } from './domain-error';
+
+export class InvalidQuantityError extends DomainError {
   message = 'Invalid quantity';
 }
