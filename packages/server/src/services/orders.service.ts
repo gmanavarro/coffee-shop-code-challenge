@@ -6,7 +6,7 @@ import { Quantity } from '../domain/value-objects/quantity';
 import { Id } from '../domain/value-objects/id';
 import { ItemsService } from './items.service';
 import { waitForSeconds } from '../infrastructure/utils/wait-for-seconds';
-import { Observable, Subject } from 'rxjs';
+import { filter, Observable, Subject } from 'rxjs';
 import { OrderCompletedEvent } from '../domain/events/order-completed.event';
 
 interface CreateOrderParams {
@@ -28,7 +28,7 @@ interface ConfirmOrderParams {
 
 @Injectable()
 export class OrdersService {
-  private readonly orderCompleted = new Subject<Order>();
+  private readonly orderCompletedEvents = new Subject<Order>();
   constructor(
     @Inject('OrdersRepository')
     private readonly ordersRepository: OrdersRepository,
@@ -73,20 +73,25 @@ export class OrdersService {
     );
 
     order.confirm();
-    await this.ordersRepository.updateOrder(order);
+    //await this.ordersRepository.updateOrder(order);
     this.processOrder(order);
   }
 
-  // This simulates the delay time from confirming
-  // an order until its completion and user notification.
+  // This simulates the delay time elapsed since the order
+  // confirmation until its completion and user notification.
   private async processOrder(order: Order) {
     await waitForSeconds(20);
     order.complete();
-    await this.ordersRepository.updateOrder(order);
-    this.orderCompleted.next(order);
+    //await this.ordersRepository.updateOrder(order);
+    this.orderCompletedEvents.next(order);
   }
 
-  publishCompletedOrders(): Observable<Order> {
-    return this.orderCompleted.asObservable();
+  async publishCompletedOrderById(
+    params: GetOrderById,
+  ): Promise<Observable<Order>> {
+    const savedOrder = await this.getOrderById(params);
+    return this.orderCompletedEvents.pipe(
+      filter((order) => savedOrder.equals(order)),
+    );
   }
 }
