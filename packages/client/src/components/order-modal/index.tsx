@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from 'react';
-import { Button, Modal } from 'antd';
+import { Button, Empty, Modal } from 'antd';
 import { OrderDto } from '@agnos-code-challenge/shared';
+import OrderTable from '../table';
 
 type Props = {
   isVisible: boolean;
@@ -12,7 +13,9 @@ type Props = {
 export const OrderModal: FunctionComponent<Props> = (props) => {
   return (
     <Modal
-      title="Order"
+      title={
+        props.order ? `Order#: ${props.order.id.toUpperCase()}` : 'Empty Order'
+      }
       centered
       visible={props.isVisible}
       closable={false}
@@ -20,12 +23,19 @@ export const OrderModal: FunctionComponent<Props> = (props) => {
         <Button shape="round" key="back" onClick={props.onCancel}>
           Return
         </Button>,
-        <Button shape="round" key="submit" type="primary" onClick={props.onOk}>
-          Pay and confirm order
-        </Button>,
+        props.order && (
+          <Button
+            shape="round"
+            key="submit"
+            type="primary"
+            onClick={props.onOk}
+          >
+            Pay and confirm order
+          </Button>
+        ),
       ]}
     >
-      Hola
+      {props.order ? <OrderTable order={props.order} /> : <Empty />}
     </Modal>
   );
 };
