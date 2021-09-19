@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { Item } from '../../domain/entities/item';
-import { ItemDto } from '../dtos/output/item.dto';
 import { Id } from '../../domain/value-objects/id';
 import { ItemModel } from '../persistence/schemas/item.schema';
+import { ItemDto } from '@agnos-code-challenge/shared';
 
 @Injectable()
 export class ItemsMapper {

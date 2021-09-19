@@ -17,12 +17,13 @@ import {
 import { OrdersService } from '../../services/orders.service';
 import { OrdersMapper } from '../mappers/orders.mapper';
 import { map, Observable } from 'rxjs';
-import { CreateOrderDto } from '@agnos-code-challenge/shared/src/dtos/input/create-order.dto';
-import { OrderDto } from '@agnos-code-challenge/shared/src/dtos/output/order.dto';
-import { IdParamDto } from '@agnos-code-challenge/shared/src/dtos/input/id-param.dto';
-import { AddItemToOrderDto } from '@agnos-code-challenge/shared/src/dtos/input/add-item-to-order.dto';
-import { OrderCompletedEventDto } from '@agnos-code-challenge/shared/src/dtos/output/order-completed-event.dto';
-
+import {
+  AddItemToOrderDto,
+  CreateOrderDto,
+  IdParamDto,
+  OrderCompletedEventDto,
+  OrderDto,
+} from '@agnos-code-challenge/shared';
 @Controller()
 export class OrdersController {
   constructor(

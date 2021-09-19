@@ -5,8 +5,8 @@ import { Order } from '../../domain/entities/order';
 import { ItemsMapper } from './items.mapper';
 import { ItemLine } from '../../domain/entities/item-line';
 import { Quantity } from '../../domain/value-objects/quantity';
-import { OrderDto } from '../dtos/output/order.dto';
 import { DiscountCalculator } from '../../domain/services/discounts/discount-calculator';
+import { OrderDto } from '@agnos-code-challenge/shared';
 
 @Injectable()
 export class OrdersMapper {
