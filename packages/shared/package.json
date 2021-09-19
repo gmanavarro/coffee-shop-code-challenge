@@ -1,0 +1,9 @@
+{
+  "name": "@agnos-code-challenge/shared",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "typescript": "^4.3.5"
+  }
+}

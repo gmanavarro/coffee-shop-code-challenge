@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Sse,
+  MessageEvent,
 } from '@nestjs/common';
 import {
   ADD_ITEM_TO_ORDER_ROUTE,
@@ -13,13 +14,14 @@ import {
   CONFIRM_ORDER_ROUTE,
   CREATE_ORDER_ROUTE,
 } from '../routes';
-import { CreateOrderDto } from '../dtos/input/create-order.dto';
 import { OrdersService } from '../../services/orders.service';
 import { OrdersMapper } from '../mappers/orders.mapper';
-import { OrderDto } from '../dtos/output/order.dto';
-import { IdParamDto } from '../dtos/input/id-param.dto';
-import { filter, map, Observable } from 'rxjs';
-import { OrderCompletedEventDto } from '../dtos/output/order-completed-event.dto';
+import { map, Observable } from 'rxjs';
+import { CreateOrderDto } from '@agnos-code-challenge/shared/src/dtos/input/create-order.dto';
+import { OrderDto } from '@agnos-code-challenge/shared/src/dtos/output/order.dto';
+import { IdParamDto } from '@agnos-code-challenge/shared/src/dtos/input/id-param.dto';
+import { AddItemToOrderDto } from '@agnos-code-challenge/shared/src/dtos/input/add-item-to-order.dto';
+import { OrderCompletedEventDto } from '@agnos-code-challenge/shared/src/dtos/output/order-completed-event.dto';
 
 @Controller()
 export class OrdersController {
@@ -38,7 +40,7 @@ export class OrdersController {
   @HttpCode(200)
   async addItemToOrder(
     @Param() idParamDto: IdParamDto,
-    @Body() addItemToOrderDto: CreateOrderDto,
+    @Body() addItemToOrderDto: AddItemToOrderDto,
   ): Promise<OrderDto> {
     const updatedOrder = await this.ordersService.addItemToOrder({
       orderId: idParamDto.id,
@@ -56,12 +58,16 @@ export class OrdersController {
   @Sse(ORDER_COMPLETED_EVENT_ROUTE)
   async publishCompletedOrderById(
     @Param() idParamDto: IdParamDto,
-  ): Promise<Observable<OrderCompletedEventDto>> {
+  ): Promise<Observable<MessageEvent>> {
     const orderCompletedEventStream = (
       await this.ordersService.publishCompletedOrderById({
         orderId: idParamDto.id,
       })
-    ).pipe(map((order) => new OrderCompletedEventDto(order)));
+    ).pipe(
+      map(
+        (order) => new OrderCompletedEventDto(this.ordersMapper.toDto(order)),
+      ),
+    );
     orderCompletedEventStream.subscribe(() =>
       Logger.log('Order Completed event triggered', this.constructor.name),
     );

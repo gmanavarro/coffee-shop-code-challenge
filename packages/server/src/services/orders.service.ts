@@ -1,4 +1,4 @@
-import { Inject, Injectable, Logger } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { Order } from '../domain/entities/order';
 import { OrdersRepository } from '../domain/services/repositories/orders.repository';
 import { ItemLine } from '../domain/entities/item-line';
@@ -7,13 +7,12 @@ import { Id } from '../domain/value-objects/id';
 import { ItemsService } from './items.service';
 import { waitForSeconds } from '../infrastructure/utils/wait-for-seconds';
 import { filter, Observable, Subject } from 'rxjs';
-import { OrderCompletedEvent } from '../domain/events/order-completed.event';
 
 interface CreateOrderParams {
   itemId: string;
 }
 
-interface GetOrderById {
+interface GetOrderByIdParams {
   orderId: string;
 }
 
@@ -47,7 +46,7 @@ export class OrdersService {
     return order;
   }
 
-  getOrderById(params: GetOrderById): Promise<Order> {
+  getOrderById(params: GetOrderByIdParams): Promise<Order> {
     return this.ordersRepository.findOrderById(Id.parse(params.orderId));
   }
 
@@ -87,7 +86,7 @@ export class OrdersService {
   }
 
   async publishCompletedOrderById(
-    params: GetOrderById,
+    params: GetOrderByIdParams,
   ): Promise<Observable<Order>> {
     const savedOrder = await this.getOrderById(params);
     return this.orderCompletedEvents.pipe(

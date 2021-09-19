@@ -1,8 +1,8 @@
 import { Controller, Get } from '@nestjs/common';
 import { GET_ITEMS_ROUTE } from '../routes';
-import { ItemDto } from '../dtos/output/item.dto';
 import { ItemsService } from '../../services/items.service';
 import { ItemsMapper } from '../mappers/items.mapper';
+import { ItemDto } from '@agnos-code-challenge/shared/src/dtos/output/item.dto';
 
 @Controller()
 export class ItemsController {
