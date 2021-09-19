@@ -1,15 +1,69 @@
-import { Action } from 'redux';
+import { AnyAction } from 'redux';
+import { ADD_ITEM_TO_ORDER, CREATE_ORDER, GET_ITEMS } from '../actions/types';
+import { handle } from 'redux-pack';
+import { ItemDto, OrderDto } from '@agnos-code-challenge/shared';
 
-const initialState: any = {};
+export type AppState = {
+  items: ItemDto[];
+  activeOrder?: OrderDto;
+  isWaitingForOrderCompletion: boolean;
+  isLoadingItems: boolean;
+};
 
-// Use the initialState as a default value
-export function rootReducer(state = initialState, action: Action) {
-  // The reducer normally looks at the action type field to decide what happens
+const initialState: AppState = {
+  items: [],
+  activeOrder: undefined,
+  isWaitingForOrderCompletion: false,
+  isLoadingItems: false,
+};
+
+export function rootReducer(state: AppState = initialState, action: AnyAction) {
   switch (action.type) {
-    // Do something here based on the different types of actions
+    case GET_ITEMS:
+      return handle(state, action, {
+        start: (previousState) => ({ ...previousState, isLoadingItems: true }),
+        success: (previousState) => ({
+          ...previousState,
+          isLoadingItems: false,
+          items: action?.payload?.data,
+        }),
+        failure: (previousState) => ({
+          ...previousState,
+          isLoadingItems: false,
+        }),
+      });
+
+    case CREATE_ORDER:
+      return handle(state, action, {
+        start: (previousState) => ({
+          ...previousState,
+          activeOrder: undefined,
+        }),
+        success: (previousState) => ({
+          ...previousState,
+          activeOrder: action?.payload?.data,
+        }),
+        failure: (previousState) => ({
+          ...previousState,
+          activeOrder: undefined,
+        }),
+      });
+
+    case ADD_ITEM_TO_ORDER:
+      return handle(state, action, {
+        start: (previousState) => ({
+          ...previousState,
+        }),
+        success: (previousState) => ({
+          ...previousState,
+          activeOrder: action?.payload?.data,
+        }),
+        failure: (previousState) => ({
+          ...previousState,
+        }),
+      });
+
     default:
-      // If this reducer doesn't recognize the action type, or doesn't
-      // care about this specific action, return the existing state unchanged
       return state;
   }
 }
