@@ -7,7 +7,6 @@ export class ItemDto {
   taxRate: number;
 }
 
-
 class ItemLineDto {
   quantity: number;
   item: ItemDto;
