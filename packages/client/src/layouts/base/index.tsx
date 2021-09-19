@@ -1,8 +1,8 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, PropsWithChildren } from 'react';
 import { Layout } from 'antd';
 const { Header, Content, Footer } = Layout;
 
-export const BaseLayout: FunctionComponent = (props) => {
+export const BaseLayout: FunctionComponent = (props: PropsWithChildren<{}>) => {
   return (
     <Layout style={{ height: '100vh' }} className="layout">
       <Header>

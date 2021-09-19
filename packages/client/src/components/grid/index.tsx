@@ -1,6 +1,10 @@
 import React, { FunctionComponent, PropsWithChildren } from 'react';
 import styled from 'styled-components';
 
+type Props = {
+  isLoading: boolean;
+};
+
 const GridContainer = styled.div`
   display: grid;
   gap: 1rem;
@@ -8,8 +12,8 @@ const GridContainer = styled.div`
   grid-template-columns: repeat(auto=fill, minmax(min(100%, 25rem), 1fr));
 `;
 
-const GridLayout: FunctionComponent = (props: PropsWithChildren<{}>) => {
+const Grid: FunctionComponent<Props> = (props: PropsWithChildren<Props>) => {
   return <GridContainer>{props.children}</GridContainer>;
 };
 
-export default GridLayout;
+export default Grid;

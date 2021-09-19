@@ -4,15 +4,16 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { configureStore } from './store/store';
 import { Provider } from 'react-redux';
-import App from './pages/app';
 import 'antd/dist/antd.css';
+import { BaseLayout } from './layouts/base';
+import App from './app';
 
 const store = configureStore({});
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App items={[]} />
+      <App />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'),
