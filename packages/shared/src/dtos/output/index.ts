@@ -15,7 +15,7 @@ class ItemLineDto {
 export class OrderDto {
   id: string;
   status: string;
-  lines: ItemLineDto;
+  lines: ItemLineDto[];
   subtotal: number;
   total: number;
 }

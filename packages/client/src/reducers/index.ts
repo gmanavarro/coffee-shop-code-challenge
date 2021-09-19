@@ -2,10 +2,12 @@ import { AnyAction } from 'redux';
 import { ADD_ITEM_TO_ORDER, CREATE_ORDER, GET_ITEMS } from '../actions/types';
 import { handle } from 'redux-pack';
 import { ItemDto, OrderDto } from '@agnos-code-challenge/shared';
+import { calculateOrderItemsCount } from '../utils/calculate-order-items-count';
 
 export type AppState = {
   items: ItemDto[];
   activeOrder?: OrderDto;
+  activeOrderItemCount: number;
   isWaitingForOrderCompletion: boolean;
   isLoadingItems: boolean;
 };
@@ -13,6 +15,7 @@ export type AppState = {
 const initialState: AppState = {
   items: [],
   activeOrder: undefined,
+  activeOrderItemCount: 0,
   isWaitingForOrderCompletion: false,
   isLoadingItems: false,
 };
@@ -38,14 +41,17 @@ export function rootReducer(state: AppState = initialState, action: AnyAction) {
         start: (previousState) => ({
           ...previousState,
           activeOrder: undefined,
+          activeOrderItemCount: 0,
         }),
         success: (previousState) => ({
           ...previousState,
           activeOrder: action?.payload?.data,
+          activeOrderItemCount: calculateOrderItemsCount(action?.payload.data),
         }),
         failure: (previousState) => ({
           ...previousState,
           activeOrder: undefined,
+          activeOrderItemCount: 0,
         }),
       });
 
@@ -57,6 +63,7 @@ export function rootReducer(state: AppState = initialState, action: AnyAction) {
         success: (previousState) => ({
           ...previousState,
           activeOrder: action?.payload?.data,
+          activeOrderItemCount: calculateOrderItemsCount(action?.payload?.data),
         }),
         failure: (previousState) => ({
           ...previousState,

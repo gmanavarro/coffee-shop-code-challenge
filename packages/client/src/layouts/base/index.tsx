@@ -1,19 +1,43 @@
 import React, { FunctionComponent, PropsWithChildren } from 'react';
-import { Layout } from 'antd';
+import { Badge, Button, Layout, Tooltip } from 'antd';
+import { styles } from './styles';
+import { ShopTwoTone } from '@ant-design/icons';
+import { useAppSelector } from '../../hooks';
 const { Header, Content, Footer } = Layout;
 
-export const BaseLayout: FunctionComponent = (
-  props: PropsWithChildren<any>,
+type Props = {
+  onBadgeButtonClick: () => void;
+};
+
+export const BaseLayout: FunctionComponent<Props> = (
+  props: PropsWithChildren<Props>,
 ) => {
+  const activeOrderItemsCount = useAppSelector(
+    (state) => state.activeOrderItemCount,
+  );
+
   return (
-    <Layout style={{ height: 'max(100%, 100vh)' }} className="layout">
-      <Header>
-        <div className="logo" />
+    <Layout style={styles.layout} className="layout">
+      <Header style={styles.header}>
+        <Tooltip
+          trigger="hover"
+          placement="bottomLeft"
+          title="Click to see your current order details"
+        >
+          <Badge count={activeOrderItemsCount}>
+            <Button
+              onClick={props.onBadgeButtonClick}
+              size="large"
+              shape="circle"
+              icon={<ShopTwoTone />}
+            />
+          </Badge>
+        </Tooltip>
       </Header>
-      <Content style={{ padding: '2rem' }}>
+      <Content style={styles.content}>
         <div className="site-layout-content">{props.children}</div>
       </Content>
-      <Footer style={{ textAlign: 'center' }}>Coffee Shop ©2021</Footer>
+      <Footer style={styles.footer}>Coffee Shop ©2021</Footer>
     </Layout>
   );
 };
