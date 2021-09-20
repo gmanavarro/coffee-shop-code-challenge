@@ -10,5 +10,6 @@ export async function setupNest(): Promise<NestApplication> {
   setupMiddlewares(app);
 
   await setupSeederService(app);
+  app.setGlobalPrefix('api');
   return app;
 }

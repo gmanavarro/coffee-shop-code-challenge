@@ -7,9 +7,13 @@
     "packages/*"
   ],
   "scripts": {
-    "rebuild": "lerna clean -y && lerna bootstrap",
+    "reinstall": "lerna clean -y && yarn install",
     "start:dev": "lerna run --stream start:dev",
-    "build": "lerna run build"
+    "start:server": "yarn workspace server start:prod",
+    "build": "lerna run build",
+    "build:server": "yarn build:shared && yarn workspace server build",
+    "build:client": "yarn build:shared && yarn workspace client build",
+    "build:shared": "yarn workspace shared build"
   },
   "devDependencies": {
     "lerna": "^4.0.0"

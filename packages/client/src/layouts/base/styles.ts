@@ -14,7 +14,7 @@ export const styles: {
     top: 0,
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
   },
   layout: { height: 'max(100%, 100vh)' },
   content: { padding: '2rem' },

@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  app:
+    container_name: app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '8080:80'
+      - '3001:3001'
+    environment:
+      - REACT_APP_API_BASE_URL=http://localhost:3001
+      - NODE_ENV=development
+      - MONGODB_URI=mongodb://test:test@localhost:27017
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=test
+      - MONGO_INITDB_ROOT_PASSWORD=test

@@ -13,7 +13,7 @@ export class ItemSeederService {
 
   async seed() {
     if (this.configService.get('NODE_ENV') !== 'development') return;
-    const bulk = this.mongoDbConnection.collection('items').bulkWrite(
+    await this.mongoDbConnection.collection('items').bulkWrite(
       items.map(({ _id, ...attributes }) => ({
         updateOne: {
           filter: { _id },
