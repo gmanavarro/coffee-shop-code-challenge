@@ -23,12 +23,12 @@ export class OrderDto {
 export class OrderCompletedEventDto {
   data: {
     message: string;
-    orderId: string;
+    order: OrderDto;
   };
-  constructor({ id }: OrderDto) {
+  constructor(order: OrderDto) {
     this.data = {
-      message: 'Your order is ready',
-      orderId: id,
+      message: 'Your order is ready!',
+      order,
     };
   }
 }

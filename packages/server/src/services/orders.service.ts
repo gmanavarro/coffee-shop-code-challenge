@@ -66,22 +66,23 @@ export class OrdersService {
     return order;
   }
 
-  async confirmOrder(params: ConfirmOrderParams): Promise<void> {
+  async confirmOrder(params: ConfirmOrderParams): Promise<Order> {
     const order = await this.ordersRepository.findOrderById(
       Id.parse(params.orderId),
     );
 
     order.confirm();
-    //await this.ordersRepository.updateOrder(order);
+    await this.ordersRepository.updateOrder(order);
     this.processOrder(order);
+    return order;
   }
 
   // This simulates the delay time elapsed since the order
   // confirmation until its completion and user notification.
   private async processOrder(order: Order) {
-    await waitForSeconds(20);
+    await waitForSeconds(1);
     order.complete();
-    //await this.ordersRepository.updateOrder(order);
+    await this.ordersRepository.updateOrder(order);
     this.orderCompletedEvents.next(order);
   }
 

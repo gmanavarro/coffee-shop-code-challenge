@@ -52,8 +52,12 @@ export class OrdersController {
 
   @Post(CONFIRM_ORDER_ROUTE)
   @HttpCode(200)
-  async confirmOrder(@Param() idParamDto: IdParamDto) {
-    await this.ordersService.confirmOrder({ orderId: idParamDto.id });
+  async confirmOrder(@Param() idParamDto: IdParamDto): Promise<OrderDto> {
+    const order = await this.ordersService.confirmOrder({
+      orderId: idParamDto.id,
+    });
+
+    return this.ordersMapper.toDto(order);
   }
 
   @Sse(ORDER_COMPLETED_EVENT_ROUTE)

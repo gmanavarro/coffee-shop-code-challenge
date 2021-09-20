@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Space, Statistic, Table } from 'antd';
+import { Statistic, Table } from 'antd';
 import { OrderDto } from '@agnos-code-challenge/shared';
 import styled from 'styled-components';
 
@@ -47,10 +47,11 @@ const TotalValuesContainer = styled.div`
   justify-content: space-around;
 `;
 
-const OrderTable: FunctionComponent<Props> = (props) => {
+export const OrderTable: FunctionComponent<Props> = (props) => {
   return (
     <>
       <Table
+        rowKey={(record) => record.item.id}
         columns={columns}
         dataSource={props.order?.lines}
         pagination={false}
@@ -61,9 +62,8 @@ const OrderTable: FunctionComponent<Props> = (props) => {
           value={props.order.subtotal - props.order.total}
         />
         <Statistic title="Total" value={props.order.total} />
+        <Statistic title="Status" value={props.order.status} />
       </TotalValuesContainer>
     </>
   );
 };
-
-export default OrderTable;

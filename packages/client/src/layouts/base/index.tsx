@@ -2,20 +2,17 @@ import React, { FunctionComponent, PropsWithChildren } from 'react';
 import { Badge, Button, Layout, Tooltip } from 'antd';
 import { styles } from './styles';
 import { ShopTwoTone } from '@ant-design/icons';
-import { useAppSelector } from '../../hooks';
+
 const { Header, Content, Footer } = Layout;
 
 type Props = {
   onBadgeButtonClick: () => void;
+  badgeCount: number;
 };
 
 export const BaseLayout: FunctionComponent<Props> = (
   props: PropsWithChildren<Props>,
 ) => {
-  const activeOrderItemsCount = useAppSelector(
-    (state) => state.activeOrderItemCount,
-  );
-
   return (
     <Layout style={styles.layout} className="layout">
       <Header style={styles.header}>
@@ -24,7 +21,7 @@ export const BaseLayout: FunctionComponent<Props> = (
           placement="bottomLeft"
           title="Click to see your current order details"
         >
-          <Badge count={activeOrderItemsCount}>
+          <Badge count={props.badgeCount}>
             <Button
               onClick={props.onBadgeButtonClick}
               size="large"

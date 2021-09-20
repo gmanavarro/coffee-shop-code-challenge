@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { Button, Empty, Modal } from 'antd';
 import { OrderDto } from '@agnos-code-challenge/shared';
-import OrderTable from '../table';
+import { OrderTable } from '../table';
 
 type Props = {
   isVisible: boolean;
@@ -30,7 +30,7 @@ export const OrderModal: FunctionComponent<Props> = (props) => {
             type="primary"
             onClick={props.onOk}
           >
-            Pay and confirm order
+            Confirm order
           </Button>
         ),
       ]}
