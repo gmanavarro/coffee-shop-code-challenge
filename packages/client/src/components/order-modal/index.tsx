@@ -23,7 +23,7 @@ export const OrderModal: FunctionComponent<Props> = (props) => {
         <Button shape="round" key="back" onClick={props.onCancel}>
           Return
         </Button>,
-        props.order && (
+        props.order && props.order.status === 'Pending' && (
           <Button
             shape="round"
             key="submit"
