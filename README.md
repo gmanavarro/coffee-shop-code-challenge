@@ -32,6 +32,9 @@ Click [here](http://ec2-13-59-13-255.us-east-2.compute.amazonaws.com/) to visit 
 
 ## Project startup
 - There are example env variables config files for both client and server.  
-- To start the project, create the `.env` file in the root directory of `client` and `server` packages and run `yarn start:dev`.  
-- There is a set of unit test suites in the `server` package. They can be run with `yarn test`.
+- To start the project:
+  - Install dependencies with `yarn install`
+  - Create the corresponding `.env` files in the root directory of both `client` and `server` packages.
+  - Run `yarn start:dev`.  
+- The `server` package has a set of unit test suites. They can be run with `yarn test`.
 
