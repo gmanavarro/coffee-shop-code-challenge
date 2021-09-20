@@ -18,6 +18,8 @@ Some considerations I took about the requirements:
 - An order can have 3 statuses: Pending, Confirmed and Completed.
 - The user can add items to the order while the order is in Pending status. After confirming, the user 'pays' for the order and waits until the order is ready.
 - The order completion time is set on 20 seconds. After 20 seconds from the order confirmation, you get a notification stating that your order is ready.
+- The user can add items one by one, there is no implementation to set the quantity when adding an item.
+- Removal of order items / item lines is not implemented.
 
 ## Deployed project
 The project is deployed in a EC2 instance of AWS.  
