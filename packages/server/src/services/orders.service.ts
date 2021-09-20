@@ -7,6 +7,7 @@ import { Id } from '../domain/value-objects/id';
 import { ItemsService } from './items.service';
 import { waitForSeconds } from '../infrastructure/utils/wait-for-seconds';
 import { filter, Observable, Subject } from 'rxjs';
+import { ConfigService } from '@nestjs/config';
 
 interface CreateOrderParams {
   itemId: string;
@@ -27,6 +28,7 @@ interface ConfirmOrderParams {
 
 @Injectable()
 export class OrdersService {
+  private readonly configService: ConfigService;
   private readonly orderCompletedEvents = new Subject<Order>();
   constructor(
     @Inject('OrdersRepository')
@@ -80,7 +82,7 @@ export class OrdersService {
   // This simulates the delay time elapsed since the order
   // confirmation until its completion and user notification.
   private async processOrder(order: Order) {
-    await waitForSeconds(1);
+    await waitForSeconds(this.configService.get('ORDER_COMPLETION_TIME'));
     order.complete();
     await this.ordersRepository.updateOrder(order);
     this.orderCompletedEvents.next(order);

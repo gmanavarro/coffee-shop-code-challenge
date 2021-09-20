@@ -1,9 +1,10 @@
 import React, { FunctionComponent, PropsWithChildren } from 'react';
-import { Badge, Button, Layout, Tooltip } from 'antd';
+import { Badge, Button, Layout, Tooltip, Typography } from 'antd';
 import { styles } from './styles';
 import { ShopTwoTone } from '@ant-design/icons';
 
 const { Header, Content, Footer } = Layout;
+const { Title } = Typography;
 
 type Props = {
   onBadgeButtonClick: () => void;
@@ -16,6 +17,7 @@ export const BaseLayout: FunctionComponent<Props> = (
   return (
     <Layout style={styles.layout} className="layout">
       <Header style={styles.header}>
+        <Title style={{ margin: 0, color: 'white' }}>Coffee Shop</Title>
         <Tooltip
           trigger="hover"
           placement="bottomLeft"

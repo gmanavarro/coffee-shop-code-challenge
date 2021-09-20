@@ -60,18 +60,18 @@ export const items: ItemModel[] = [
   },
   {
     _id: '2f5a1d55-a42c-4883-9bcd-1c3f92f271f7',
-    name: 'Soda',
+    name: 'Coffee',
     imageUrl:
-      'https://images.unsplash.com/photo-1517959105821-eaf2591984ca?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80',
+      'https://images.unsplash.com/photo-1555118367-93f01e18660f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80',
     category: Category.BEVERAGE,
     price: 30,
     taxRate: 0.15,
   },
   {
     _id: 'aabdf73b-81d9-4f2b-a678-1939cd22039b',
-    name: 'Beer',
+    name: 'Milkshake',
     imageUrl:
-      'https://images.unsplash.com/photo-1608270586620-248524c67de9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80',
+      'https://images.unsplash.com/photo-1541658016709-82535e94bc69?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=3400&q=80',
     category: Category.BEVERAGE,
     price: 40,
     taxRate: 0.2,
