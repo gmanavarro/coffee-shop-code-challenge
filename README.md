@@ -13,8 +13,8 @@ Some considerations I took about the requirements:
 - The applied discount always is the highest applicable.
 - There are only two item categories: Meals and Beverages.
 - There are only two discounts available:
-  - Order 2 Beverages and 2 Meals, and get a 50% discount on the cheaper one of the ordered Beverages.
-  - Order 5 Meals and get a 100% discount on the cheaper one of the ordered Meals.
+  - Order 2 Beverages and 2 Meals, and get a 50% discount on the cheapest one of the ordered Beverages.
+  - Order 5 Meals and get a 100% discount on the cheapest one of the ordered Meals.
 - The order completion time is set on 20 seconds. After 20 seconds from the order confirmation, you get a notification stating that your order is ready.
 
 ## Deployed project
