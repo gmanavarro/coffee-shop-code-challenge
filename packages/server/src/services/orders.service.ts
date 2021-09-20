@@ -28,7 +28,6 @@ interface ConfirmOrderParams {
 
 @Injectable()
 export class OrdersService {
-  private readonly configService: ConfigService;
   private readonly orderCompletedEvents = new Subject<Order>();
   constructor(
     @Inject('OrdersRepository')
@@ -82,7 +81,7 @@ export class OrdersService {
   // This simulates the delay time elapsed since the order
   // confirmation until its completion and user notification.
   private async processOrder(order: Order) {
-    await waitForSeconds(this.configService.get('ORDER_COMPLETION_TIME'));
+    await waitForSeconds(20);
     order.complete();
     await this.ordersRepository.updateOrder(order);
     this.orderCompletedEvents.next(order);
