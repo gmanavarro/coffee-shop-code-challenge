@@ -1,0 +1,122 @@
+{
+	"info": {
+		"_postman_id": "35ae411b-9d4b-41cd-a04e-1d5638dcd4e0",
+		"name": "API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get All Items",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://ec2-13-59-13-255.us-east-2.compute.amazonaws.com/api/items",
+					"protocol": "http",
+					"host": [
+						"ec2-13-59-13-255",
+						"us-east-2",
+						"compute",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"api",
+						"items"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Order",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"itemId\": \"471a8e7f-ee53-442e-a2a9-484ae87b8a92\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://ec2-13-59-13-255.us-east-2.compute.amazonaws.com/api/order",
+					"protocol": "http",
+					"host": [
+						"ec2-13-59-13-255",
+						"us-east-2",
+						"compute",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"api",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Item to Order",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"itemId\": \"471a8e7f-ee53-442e-a2a9-484ae87b8a92\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://ec2-13-59-13-255.us-east-2.compute.amazonaws.com/api/order/1f0ac241-7898-42ba-b414-98d2bf27bba7",
+					"protocol": "http",
+					"host": [
+						"ec2-13-59-13-255",
+						"us-east-2",
+						"compute",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"api",
+						"order",
+						"1f0ac241-7898-42ba-b414-98d2bf27bba7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Confirm Order",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://ec2-13-59-13-255.us-east-2.compute.amazonaws.com/api/order/1f0ac241-7898-42ba-b414-98d2bf27bba7/confirm",
+					"protocol": "http",
+					"host": [
+						"ec2-13-59-13-255",
+						"us-east-2",
+						"compute",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"api",
+						"order",
+						"1f0ac241-7898-42ba-b414-98d2bf27bba7",
+						"confirm"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
