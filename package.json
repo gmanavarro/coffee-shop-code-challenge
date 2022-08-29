@@ -9,6 +9,7 @@
   "scripts": {
     "reinstall": "lerna clean -y && yarn install",
     "start:dev": "lerna run --stream start:dev",
+    "start": "lerna run --scope @agnos-code-challenge/server start",
     "build": "lerna run build",
     "test": "lerna run test"
   },

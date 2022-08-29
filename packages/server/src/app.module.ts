@@ -14,6 +14,7 @@ import { OrdersModule } from './infrastructure/modules/orders.module';
       useFactory: (configService: ConfigService) => {
         return {
           uri: configService.get('MONGODB_URI'),
+          authSource: 'admin',
         };
       },
       inject: [ConfigService],

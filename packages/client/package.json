@@ -29,7 +29,6 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
     "start:dev": "react-scripts start",
     "build": "react-scripts build",
     "test": "echo No tests specified for client app",

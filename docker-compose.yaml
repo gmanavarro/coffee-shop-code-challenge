@@ -1,22 +1,42 @@
-version: '3'
+version: '3.5'
 
 services:
-  app:
-    container_name: app
-    build:
-      context: .
-      dockerfile: Dockerfile
+  nginx:
+    image: nginx
+    volumes:
+      - ./nginx.conf:/etc/nginx/templates/default.conf.template
     ports:
-      - '8080:80'
-      - '3001:3001'
-    environment:
-      - REACT_APP_API_BASE_URL=http://localhost:3001
-      - NODE_ENV=development
-      - MONGODB_URI=mongodb://test:test@localhost:27017
-  mongodb:
+      - "80:80"
+  mongo:
     image: mongo
-    ports:
-      - "27017:27017"
+    restart: always
+    expose:
+      - 27017
     environment:
       - MONGO_INITDB_ROOT_USERNAME=test
       - MONGO_INITDB_ROOT_PASSWORD=test
+      - MONGO_INITDB_DATABASE=coffee
+  mongo-express:
+    restart: always
+    image: mongo-express
+    ports:
+      - "8081:8081"
+    environment:
+      - ME_CONFIG_BASICAUTH_USERNAME=root
+      - ME_CONFIG_BASICAUTH_PASSWORD=root
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=test
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=test
+      - ME_CONFIG_MONGODB_URL=mongodb://test:test@mongo
+  app:
+    build:
+      context: .
+    depends_on:
+      - mongo
+    restart: always
+    expose:
+      - 3000
+      - 3001
+    environment:
+      - REACT_APP_API_BASE_URL=http://localhost/api
+      - NODE_ENV=development
+      - MONGODB_URI=mongodb://test:test@mongo/coffee
